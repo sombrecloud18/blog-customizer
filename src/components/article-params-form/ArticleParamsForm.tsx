@@ -1,12 +1,13 @@
 import { ArrowButton } from 'src/ui/arrow-button';
 import { Button } from 'src/ui/button';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { Text } from '../../ui/text/Text';
 import { Select } from '../../ui/select/Select';
 import { RadioGroup } from '../../ui/radio-group';
 import { Separator } from 'src/ui/separator';
 import { useOverlayClick } from 'src/hooks/useOverlayClick';
 import styles from './ArticleParamsForm.module.scss';
+import clsx from 'clsx';
 import {
 	fontFamilyOptions,
 	ArticleStateType,
@@ -32,9 +33,6 @@ export const ArticleParamsForm = ({
 	const toggleOpen = () => {
 		setIsOpen((prev) => !prev);
 	};
-	useEffect(() => {
-		setValue(pageState);
-	}, [pageState]);
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 		onApply(value);
@@ -43,9 +41,6 @@ export const ArticleParamsForm = ({
 	useOverlayClick({
 		isOpen,
 		rootRef: formRef,
-		onClose: () => {
-			setValue(pageState);
-		},
 		onChange: setIsOpen,
 	});
 	const handleReset = (e: React.FormEvent) => {
@@ -62,7 +57,7 @@ export const ArticleParamsForm = ({
 			/>
 			<aside
 				ref={formRef}
-				className={`${styles.container} ${isOpen && styles.container_open}`}>
+				className={clsx(styles.container, isOpen && styles.container_open)}>
 				<form
 					onSubmit={handleSubmit}
 					onReset={handleReset}
