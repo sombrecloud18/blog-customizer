@@ -46,6 +46,7 @@ export const ArticleParamsForm = ({
 	const handleReset = (e: React.FormEvent) => {
 		e.preventDefault();
 		onApply(defaultArticleState);
+		setValue(defaultArticleState);
 	};
 	return (
 		<>
